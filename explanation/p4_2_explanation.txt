@@ -1,0 +1,35 @@
+Питання: 
+Змініть декілька операторів INNER на LEFT чи RIGHT. Визначте, що відбувається з кількістю рядків. Чому? 
+Напишіть відповідь у текстовому файлі.
+
+Відповідь:
+
+Запит за допомогою оператора INNER JOIN:
+
+select count(*) as row_count
+from order_details
+inner join orders on order_details.order_id = orders.id
+inner join products on order_details.product_id = products.id
+inner join customers on orders.customer_id = customers.id
+inner join employees on orders.employee_id = employees.employee_id
+inner join shippers on orders.shipper_id = shippers.id
+inner join suppliers on products.supplier_id = suppliers.id
+inner join categories on products.category_id = categories.id;
+
+Запит за допомогою оператора LEFT JOIN:
+
+select count(*) as row_count
+from order_details
+left join orders on order_details.order_id = orders.id
+left join products on order_details.product_id = products.id
+left join customers on orders.customer_id = customers.id
+left join employees on orders.employee_id = employees.employee_id
+left join shippers on orders.shipper_id = shippers.id
+left join suppliers on products.supplier_id = suppliers.id
+left join categories on products.category_id = categories.id;
+
+
+Результат обох запитів буде однаковим через те, що обидва типи з'єднань (INNER JOIN та LEFT JOIN) враховують усі спільні значення 
+між таблицями, а також всі значення з таблиці, до якої виконується з'єднання (у моєму випадку - з order_details). 
+Тому, оскільки всі значення присутні у всіх з'єднаних таблицях, і немає пропущених співставлень, кількість рядків у результаті 
+буде однаковою для обох запитів.
